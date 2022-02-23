@@ -16,5 +16,6 @@ Route::get('/', function () {
 });
 
 Route::prefix("/admin")->namespace("Admin")->group(function() {
+    Route::match(["get", "post"], "/", "AdminController@login");
     Route::get("dashboard", "AdminController@dashboard");
 });

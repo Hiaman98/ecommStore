@@ -10,4 +10,10 @@ class AdminController extends Controller
     public function dashboard () {
         return view("admin.dashboard");
     }
+
+    public function login()
+    {
+        return view("admin.admin_login");
+    }
 }
+
