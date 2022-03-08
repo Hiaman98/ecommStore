@@ -15,10 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix("/admin")->namespace("Admin")->group(function() {
-    Route::match(["get", "post"], "/", "AdminController@login");
+Route::get("/logout", "Admin\AdminController@logout")->name("logout");
 
-    Route::group(["middleware"=> ["admin"]], function() {
-        Route::get("dashboard", "AdminController@dashboard");
+Route::prefix("admin")->namespace("Admin")->group(function() {
+    Route::match(["get", "post"], "/", "AdminController@login")->name("login");
+
+    Route::group(["middleware"=> ["admin"]], function() 
+    {
+        Route::get("dashboard", "AdminController@dashboard")->name("dashboard");
     });
 });

@@ -5,14 +5,25 @@ namespace App;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-
-class Admin extends Model
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+class Admin extends \Eloquent implements Authenticatable
 {
     use Notifiable;
+    use AuthenticableTrait;
+
     protected $guard = "admin";
 
     protected $fillable = [
-        "name", "email", "password"
+        "name",
+        "type",
+        "mobile",
+        "email",
+        "password",
+        "image",
+        "status",
+        "created_at",
+        "updated_at"
     ];
 
     protected $hidden = [
