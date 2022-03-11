@@ -24,7 +24,15 @@
     </div>
     <div class="card-body">
     <p class="login-box-msg">Sign in to start your session</p>
-
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <form action="{{ route('login') }}" method="post">
         @csrf
         @if(Session::has("error_message")) 
