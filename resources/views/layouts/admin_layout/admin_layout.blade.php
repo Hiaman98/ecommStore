@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <title>AdminLTE 3 | Dashboard</title>
 
 <!-- Google Font: Source Sans Pro -->
@@ -55,7 +57,7 @@ $.widget.bridge('uibutton', $.ui.button)
 <!-- ChartJS -->
 <script src="{{asset("plugins/chart.js/Chart.min.js")}}"></script>
 <!-- Sparkline -->
-<script src="{{asset("plugins/sparklines/sparkline.js")}}"></script>
+{{-- <script src="{{asset("plugins/sparklines/sparkline.js")}}"></script> --}}
 <!-- JQVMap -->
 <script src="{{asset("plugins/jqvmap/jquery.vmap.min.js")}}"></script>
 <script src="{{asset("plugins/jqvmap/maps/jquery.vmap.usa.js")}}"></script>
@@ -73,8 +75,9 @@ $.widget.bridge('uibutton', $.ui.button)
 <!-- AdminLTE App -->
 <script src="{{asset("js/admin_js/adminlte.js")}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset("js/admin_js/demo.js")}}"></script>
+{{-- <script src="{{asset("js/admin_js/demo.js")}}"></script> --}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset("js/admin_js/pages/dashboard.js")}}"></script>
+{{-- <script src="{{asset("js/admin_js/pages/dashboard.js")}}"></script> --}}
+@yield("footer")
 </body>
 </html>

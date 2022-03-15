@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use App\Admin;
+
 class AdminController extends Controller
 {
     public function dashboard () {
@@ -53,6 +55,17 @@ class AdminController extends Controller
         
         $adminDetails = Admin::where("email", Auth::guard("admin")->user()->email)->first();
         return view("admin.admin_settings", compact("adminDetails"));
+    }
+
+    public function checkCurrentPassword(Request $request)
+    {
+        if(Hash::check($request->currentPassword, Auth::guard("admin")->user()->password))
+        {
+            return "true";
+        } else {
+            return "false";
+
+        }
     }
 }
 

@@ -45,17 +45,18 @@
                     
                     <div class="form-group">
                         <label for="setting-password">Admin type</label>
-                        <input type="password" name="admin-type" value="{{ $adminDetails->type }}" class="form-control" id="setting-admin-type" placeholder="Admin type">
+                        <input type="password" name="admin-type" value="" class="form-control" id="setting-admin-type" placeholder="Admin type">
                     </div>
 
                     <div class="form-group">
                         <label for="setting-confirm-password">Current password</label>
-                        <input type="password" name="current-password" value="{{ $adminDetails->name }}" class="form-control" id="setting-confirm-password" placeholder="Confirm Password">
+                        <input type="password" name="current-password" value="" class="form-control" id="setting-confirm-password" placeholder="Confirm Password">
+                        <small id="confirm-password-message"></small>
                     </div>
 
                     <div class="form-group">
                         <label for="setting-reset-password">Reset password</label>
-                        <input type="password" name="reset-password" value="{{ $adminDetails->name }}" class="form-control" id="setting-reset-password" placeholder="Reset Password">
+                        <input type="password" name="reset-password" value="" class="form-control" id="setting-reset-password" placeholder="Reset Password">
                     </div>
                   </div>
                   <!-- /.card-body -->
@@ -71,7 +72,12 @@
     </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
+  
 </div>
 <!-- /.content-wrapper -->
+@endsection
+
+
+@section('footer')
+  <script src="{{ asset("js/admin_js/admin-settings.js") }}"></script>
 @endsection
