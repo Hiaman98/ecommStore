@@ -25,5 +25,7 @@ Route::prefix("admin")->namespace("Admin")->group(function() {
         Route::get("dashboard", "AdminController@dashboard")->name("dashboard");
         Route::get("settings", "AdminController@settings")->name("admin.settings");
         Route::post("check/current/password", "AdminController@checkCurrentPassword")->name("admin.check.current.password");
+        Route::post("update/current/password", "AdminController@updateCurrentPassword")->name("admin.update.password");
+        Route::post("update/admin/details", "AdminController@updateAdminDetails")->name("update.admin.details");
     });
 });

@@ -67,5 +67,39 @@ class AdminController extends Controller
 
         }
     }
+
+    public function updateCurrentPassword(Request $request)
+    {
+        $request->validate([
+            "current-password" => "required",
+            "confirm-password" => "required",
+            "new-password" => "required",
+        ]);
+        
+
+        // if current-password matches with password saved in database than update password
+
+        if(Hash::check($request["current-password"], Auth::guard("admin")->user()->password))
+        {
+            if($request["current-password"] == $request["confirm-password"]) 
+            {
+                Admin::where("id", Auth::guard("admin")->user()->id)->update(["password" => bcrypt($request["new-password"])]);
+                Session::flash("success_message",  "password updated successfully");
+                return redirect()->back();
+            } else {
+                Session::flash("error_message", "Current password didn't matched with confirm password");
+                return redirect()->back();
+            }
+        } else {
+            Session::flash("error_message", "Current password not matched with with user password");
+            return redirect()->back();
+
+        }
+    }
+
+    public function updateAdminDetails(Request $request) 
+    {
+        dd($request->all());
+    }
 }
 

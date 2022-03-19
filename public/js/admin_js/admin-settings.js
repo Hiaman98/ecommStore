@@ -1,8 +1,8 @@
 $(document).ready(function () {
     // check current password
     
-    $("#setting-confirm-password").keyup(function () {
-        var currentPassword = $("#setting-confirm-password").val();
+    $("#setting-current-password").keyup(function () {
+        var currentPassword = $("#setting-current-password").val();
         var url = "/admin/check/current/password";
 
         $.ajax({
@@ -16,9 +16,9 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if(response == "true") {
-                    $("#confirm-password-message").html('<font color=green> Current password is correct</font>');
+                    $("#current-password-message").html('<font color=green> Current password is correct</font>');
                 } else if(response === "false") {
-                    $("#confirm-password-message").html('<font color=red> Current password is incorrect</font>');
+                    $("#current-password-message").html('<font color=red> Current password is incorrect</font>');
                 }
             },
             error: function(error) {
