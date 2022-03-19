@@ -99,7 +99,28 @@ class AdminController extends Controller
 
     public function updateAdminDetails(Request $request) 
     {
-        dd($request->all());
+        // if request type get then show form else update admin record details
+        if($request->isMethod("get"))
+        {
+            $adminDetails = Admin::where("email", Auth::guard("admin")->user()->email)->first();
+            return view("admin.admin_update_details", compact("adminDetails"));
+
+        } else if ($request->isMethod("post")) {
+
+            // validate request and if request successfully validates, update admin details
+            $request->validate([
+                "name" => "required|string",
+                "mobile" => "required|digits:10",
+            ]);
+            
+            Admin::where("id", Auth::guard("admin")->user()->id)->update([
+                "name" => $request->name,
+                "mobile" => $request->mobile
+            ]);
+
+            Session::flash("success_message", "Record updated successfully");
+            return redirect()->back();
+        }
     }
 }
 
