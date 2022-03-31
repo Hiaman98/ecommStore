@@ -25,10 +25,20 @@
             <div class="col-md-3"></div>
             <div class="col-md-6">
             <div class="m-2">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 @if(Session::has("error_message")) 
                 <div class="alert alert-danger alert-dismissible" role="alert">
-                        {{ Session::get("error_message") }}                
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    {{ Session::get("error_message") }}                
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -36,12 +46,12 @@
 
                 @if(Session::has("success_message")) 
                 <div class="alert alert-success alert-dismissible" role="alert">
-                        {{ Session::get("success_message") }}                
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    {{ Session::get("success_message") }}                
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            @endif
+                @endif
             </div>
             <!-- general form elements -->
             <div class="card">
@@ -50,7 +60,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{route("update.admin.details")}}" method="POST">
+                <form action="{{route("update.admin.details")}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
 
@@ -90,6 +100,13 @@
                     <div class="form-group">
                         <label for="admin-image">Image</label>
                         <input type="file" name="image" value="" class="form-control" id="admin-image" placeholder="Choose image">
+                        @isset(Auth::guard("admin")->user()->image)
+                            @if (!empty(Auth::guard("admin")->user()->image))
+                                <a target="_blank" href="{{ url("images/admin_images/admin_photos") . '/' . Auth::guard("admin")->user()->image}}">View Image</a>  
+                                <input type="hidden" name="current-image" value="{{ Auth::guard("admin")->user()->image }}">                          
+                            @endif
+                        @endisset
+                        
                     </div>
                 </div>
                 <!-- /.card-body -->

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin;
 use Illuminate\Http\Request;
+use Intervention\Image\Image;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -111,11 +112,33 @@ class AdminController extends Controller
             $request->validate([
                 "name" => "required|string",
                 "mobile" => "required|digits:10",
+                "image" => "image|mimes:png,jpg"
             ]);
             
+            // Check if we have picked image, if yes then save that image else check for previous image
+            if($request->hasFile("image"))
+            {
+                $image = $request->file("image");
+
+                if($image->isValid()) {
+
+                    $extension = $image->getClientOriginalExtension();
+                    $imageName = time() . '.' . $extension;
+                    $imagePath = "images/admin_images/admin_photos";
+
+                    //upload image
+                    $image->move($imagePath, $imageName);
+                } else if(!empty($request["current-image"])) {
+                    $imageName = $request["current-image"];
+                } else {
+                    $imageName = "";
+                }
+            }
+
             Admin::where("id", Auth::guard("admin")->user()->id)->update([
                 "name" => $request->name,
-                "mobile" => $request->mobile
+                "mobile" => $request->mobile,
+                "image" => $imageName
             ]);
 
             Session::flash("success_message", "Record updated successfully");
