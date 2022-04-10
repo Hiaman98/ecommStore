@@ -27,5 +27,9 @@ Route::prefix("admin")->namespace("Admin")->group(function() {
         Route::post("check/current/password", "AdminController@checkCurrentPassword")->name("admin.check.current.password");
         Route::post("update/current/password", "AdminController@updateCurrentPassword")->name("admin.update.password");
         Route::match(["get", "post"], "update/details", "AdminController@updateAdminDetails")->name("update.admin.details");
+        Route::get("section", "SectionController@index")->name("admin.section.index");
+        Route::get("section/datatable", "SectionController@dataTable")->name("admin.section.table");
+        Route::post("update-section/{id}/status", "SectionController@updateSectionStatus")->name("update.section.status");
+
     });
 });

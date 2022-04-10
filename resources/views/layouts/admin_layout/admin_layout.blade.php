@@ -27,6 +27,9 @@
 <link rel="stylesheet" href="{{asset("plugins/daterangepicker/daterangepicker.css")}}">
 <!-- summernote -->
 <link rel="stylesheet" href="{{asset("plugins/summernote/summernote-bs4.min.css")}}">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+@yield('head')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -45,7 +48,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{asset("plugins/jquery/jquery.min.js")}}"></script>
+{{-- <script src="{{asset("plugins/jquery/jquery.min.js")}}"></script> --}}
 <!-- jQuery UI 1.11.4 -->
 <script src="{{asset("plugins/jquery-ui/jquery-ui.min.js")}}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -74,10 +77,6 @@ $.widget.bridge('uibutton', $.ui.button)
 <script src="{{asset("plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset("js/admin_js/adminlte.js")}}"></script>
-<!-- AdminLTE for demo purposes -->
-{{-- <script src="{{asset("js/admin_js/demo.js")}}"></script> --}}
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-{{-- <script src="{{asset("js/admin_js/pages/dashboard.js")}}"></script> --}}
 @yield("footer")
 </body>
 </html>
