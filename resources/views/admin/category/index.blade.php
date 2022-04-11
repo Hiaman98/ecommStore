@@ -17,17 +17,17 @@
         <div class="container-fluid bg-white">
             <div class="row">
                 <div class="col-md-12 col-12">
-                    <h3 class="m-2">Sections</h3>
+                    <h3 class="m-2">Category</h3>
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-md-12 col-12 m-2">
-                    <table class="table table-bordered text-center" id="section-table">
+                    <table class="table table-bordered text-center" id="category-table">
                         <thead>
                             <tr>
-                                <th>Id</th>
                                 <th>Name</th>
+                                <th>Url</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -44,23 +44,21 @@
 @section('footer')
     <script>
         $(document).ready(function () {
-            // Section Data Table
-            $('#section-table').DataTable({
+            // category Data Table
+            $('#category-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{route('admin.section.table')}}",
+                    url: "{{route('admin.category.table')}}",
                 },
                 columns: [
                     {
-                        data: "id", 
-                        name: 'id',
-                        orderable: false,
-                        searchable:false
+                        data: "category_name", 
+                        name: 'category_name',
                     },
                     {
-                        data: "name", 
-                        name: 'name'
+                        data: "url", 
+                        name: 'url'
                     },
                     {
                         data: "status",
@@ -72,10 +70,10 @@
             });
         });
 
-        function updateSectionStatus(e) {  
+        function updateCategoryStatus(e) {  
             var status =  $(e).attr("data-status");
             var id = $(e).attr("data-id");
-            var url = "{{route('update.section.status', [':id'])}}";
+            var url = "{{route('update.category.status', [':id'])}}";
             url = url.replace(":id", id);
 
             $.ajax({
@@ -88,7 +86,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (response) {
-                    $('#section-table').DataTable().ajax.reload();
+                    $('#category-table').DataTable().ajax.reload();
 
                 }, 
                 error: function (e) {

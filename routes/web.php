@@ -30,6 +30,10 @@ Route::prefix("admin")->namespace("Admin")->group(function() {
         Route::get("section", "SectionController@index")->name("admin.section.index");
         Route::get("section/datatable", "SectionController@dataTable")->name("admin.section.table");
         Route::post("update-section/{id}/status", "SectionController@updateSectionStatus")->name("update.section.status");
+        // Category Routes
+        Route::get("category", "CategoryController@index");
+        Route::get("category/datatable", "CategoryController@dataTable")->name("admin.category.table");
+        Route::post("update-category/{id}/status", "CategoryController@updateCategoryStatus")->name("update.category.status");
 
     });
 });
