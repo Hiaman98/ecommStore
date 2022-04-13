@@ -10,35 +10,34 @@
 @endsection
 
 @section('content') 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid bg-white">
-            <div class="row">
-                <div class="col-md-12 col-12">
-                    <h3 class="m-2">Sections</h3>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-12 col-12 m-2">
-                    <table class="table table-bordered text-center" id="section-table">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>        
-                </div>
+<section class="content-header bg-white">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Sections</h1>
             </div>
         </div>
     </div>
-</div>
+</section>
+<section class="content bg-white mt-2">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 col-12 m-2">
+                <table class="table table-bordered text-center" id="section-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>        
+            </div>
+        </div>
+    </div>
+</section>
 @endsection
 
 @section('footer')
