@@ -24,6 +24,28 @@ class CategoryController extends Controller
         }
     }
 
+    public function store(Request $request) {
+
+        // if method type is post then store data in database else return "add category page"
+        if($request->isMethod("post")) {
+            $request->validate([
+                "category_name" => "required",
+                "section_id" => "required",
+                "category_discount" => "required",
+                "parent_id" => "required"
+            ]);
+
+            try {
+                Category::insert($request->except('_token'));
+                return redirect()->route("admin.category.index");
+            } catch (\Throwable $th) {
+                return redirect()->back()->withErrors("Something went wrong, category not created");
+            }
+
+        }
+
+        return view("admin.category.add");
+    }
     public function dataTable() 
     {
         $categories = Category::all();

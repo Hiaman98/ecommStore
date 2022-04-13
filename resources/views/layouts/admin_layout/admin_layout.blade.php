@@ -33,17 +33,14 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
-@include('layouts.admin_layout.admin_sidebar')
-@include('layouts.admin_layout.admin_header')
-@yield('content')
-@include('layouts.admin_layout.admin_footer')
-
-<!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-</aside>
-<!-- /.control-sidebar -->
+    @include('layouts.admin_layout.admin_header')
+    @include('layouts.admin_layout.admin_sidebar')
+    <div class="content-wrapper">
+        <div class="p-2">
+        @yield('content')
+        </div>
+    </div>
+    @include('layouts.admin_layout.admin_footer')
 </div>
 <!-- ./wrapper -->
 
