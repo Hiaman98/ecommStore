@@ -29,10 +29,12 @@
 <link rel="stylesheet" href="{{asset("plugins/summernote/summernote-bs4.min.css")}}">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- sweet alert -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @yield('head')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+    <div class="wrapper">
     @include('layouts.admin_layout.admin_header')
     @include('layouts.admin_layout.admin_sidebar')
     <div class="content-wrapper">

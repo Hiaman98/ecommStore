@@ -88,15 +88,10 @@
                     </div>                         
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputFile">Category image <span style="color: red">*</span></label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" name="category_image" value="{{old('category_image')}}" class="custom-file-input" id="category_image">
-                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                </div>
-                            {{-- <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
-                            </div> --}}
+                            <label for="category_image">Category image <span style="color: red">*</span></label>
+                            <div class="custom-file">
+                                <input type="file" id="category_image"  class="custom-file-input"  name="image" value="{{old('category_image')}}">
+                                <label class="custom-file-label" for="category_image">Choose file</label>
                             </div>
                         </div>
                     </div>

@@ -32,11 +32,30 @@ class CategoryController extends Controller
                 "category_name" => "required",
                 "section_id" => "required",
                 "category_discount" => "required",
-                "parent_id" => "required"
+                "parent_id" => "required",
+                "image" => "image|mimes:png,jpg"
             ]);
 
             try {
-                Category::insert($request->except('_token'));
+
+                // Check if we have picked image, if yes then save that image else check for previous image
+                if($request->hasFile("image"))
+                {
+                    $image = $request->file("image");
+
+                    if($image->isValid()) {
+                        $extension = $image->getClientOriginalExtension();
+                        $imageName = time() . '.' . $extension;
+                        $imagePath = "images/admin_images/category_image/" . $imageName;
+                        $request["category_image"] = asset($imagePath);
+                        //upload image
+                        $image->move($imagePath, $imageName);
+                    } else {
+                        $imageName = "";
+                    }
+                }
+
+                Category::insert($request->except(['_token', 'image']));
                 return redirect()->route("admin.category.index");
             } catch (\Throwable $th) {
                 return redirect()->back()->withErrors("Something went wrong, category not created");

@@ -7,6 +7,7 @@
 
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="sweetalert2.all.min.js"></script>
 @endsection
 
 @section('content') 
@@ -70,6 +71,7 @@
         });
 
         function updateCategoryStatus(e) {  
+
             var status =  $(e).attr("data-status");
             var id = $(e).attr("data-id");
             var url = "{{route('update.category.status', [':id'])}}";
