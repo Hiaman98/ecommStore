@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Section;
 use App\Category;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
     public function index() {
+        
         return view("admin.category.index");
     }
 
@@ -63,7 +65,8 @@ class CategoryController extends Controller
 
         }
 
-        return view("admin.category.add");
+        $sections = Section::all();
+        return view("admin.category.add", compact("sections"));
     }
     public function dataTable() 
     {

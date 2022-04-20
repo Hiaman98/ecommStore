@@ -67,6 +67,9 @@
                         <label>Select Section <span style="color: red">*</span></label>
                         <select name="section_id" value="{{old('section_id')}}" class="form-control select2" style="width: 100%;">
                             <option selected="selected">Select</option>
+                            @foreach ($sections as $section)
+                                <option value="{{$section->id}}">{{$section->name}}</option>
+                            @endforeach
                             <option value="1">Washington</option>
                         </select>
                         @error('section_id')
