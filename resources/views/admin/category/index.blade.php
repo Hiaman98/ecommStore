@@ -7,7 +7,6 @@
 
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-<script src="sweetalert2.all.min.js"></script>
 @endsection
 
 @section('content') 
@@ -28,8 +27,11 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Section</th>
+                            <th>Parent category</th>
                             <th>Url</th>
                             <th>Status</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,12 +59,26 @@
                         name: 'category_name',
                     },
                     {
+                        data: "section", 
+                        name: 'section',
+                    },
+                    {
+                        data: "parent_category", 
+                        name: 'parent_category',
+                    },
+                    {
                         data: "url", 
                         name: 'url'
                     },
                     {
                         data: "status",
                         name: 'status',
+                        orderable: false,
+                        searchable:false
+                    },
+                    {
+                        data: "action",
+                        name: 'action',
                         orderable: false,
                         searchable:false
                     },

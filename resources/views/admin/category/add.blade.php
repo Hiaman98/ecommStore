@@ -1,9 +1,8 @@
 @extends('layouts.admin_layout.admin_layout')
 @section('head')
-
-  <!-- Select2 -->
-  <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
-  <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">
+<!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">
 @endsection
 
 @section('content') 
@@ -65,12 +64,16 @@
                     <div class="col-md-6">
                         <div class="form-group">
                         <label>Select Section <span style="color: red">*</span></label>
-                        <select name="section_id" value="{{old('section_id')}}" class="form-control select2" style="width: 100%;">
-                            <option selected="selected">Select</option>
+                        <select id="category-section" name="section_id" value="{{old('section_id')}}" class="form-control select2" style="width: 100%;">
+                            <option selected>Select</option>
                             @foreach ($sections as $section)
                                 <option value="{{$section->id}}">{{$section->name}}</option>
+                                {{-- @if (isset($section["categories"]))
+                                    @foreach ($section["categories"] as $category)
+                                        <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                    @endforeach
+                                @endif --}}
                             @endforeach
-                            <option value="1">Washington</option>
                         </select>
                         @error('section_id')
                             <p style="color: red">{{ $message }}</p>
@@ -80,9 +83,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                         <label>Select category level <span style="color: red">*</span></label>
-                        <select name="parent_id" value="{{old('parent_id')}}" class="form-control select2" style="width: 100%;">
-                            <option selected="selected">Select</option>
-                            <option value="1">Washington</option>
+                        <select  id="section-category" name="parent_id" value="{{old('parent_id')}}" class="form-control select2" style="width: 100%;">
+                            <option selected="selected" value="0">Main Category</option>
                         </select>
                         @error('parent_id')
                             <div class="alert alert-danger">{{ $message }}</div>
@@ -149,4 +151,41 @@
         </div>
     </div>
 </section>
+@endsection
+
+@section('footer')
+    <script src="{{ asset("js/admin_js/category/category.js")}}"></script>
+    <script>
+        $("#category-section").change(function (e) { 
+            var section_id = $("#category-section option:selected").val();
+
+            $.ajax({
+                url: "{{route('admin.category.section')}}",
+                data: {
+                    section_id: section_id
+                },
+                success: function (response) {
+                    if(response.categories.length > 0) {
+                        Category.appendCategoryOptions(response);
+                    } else {
+
+                        $("#section-category option:not(:first)").remove()
+
+                        //show alert messages
+                        Swal.fire({
+                            icon: 'info',
+                            text: 'This section doesn"t have any category',
+                        });
+                    }
+                }, 
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+                }
+            });
+        });
+    </script>
 @endsection

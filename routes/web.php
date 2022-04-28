@@ -35,6 +35,6 @@ Route::prefix("admin")->namespace("Admin")->group(function() {
         Route::match(["get", "post"], "add/category", "CategoryController@store")->name("admin.category.add");
         Route::get("category/datatable", "CategoryController@dataTable")->name("admin.category.table");
         Route::post("update-category/{id}/status", "CategoryController@updateCategoryStatus")->name("update.category.status");
-
+        Route::get("category/section", "CategoryController@getCategoryOfSection")->name("admin.category.section");
     });
 });

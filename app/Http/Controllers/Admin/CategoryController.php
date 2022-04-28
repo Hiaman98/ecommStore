@@ -62,15 +62,14 @@ class CategoryController extends Controller
             } catch (\Throwable $th) {
                 return redirect()->back()->withErrors("Something went wrong, category not created");
             }
-
         }
 
-        $sections = Section::all();
+        $sections = Section::where("status", true)->get();
         return view("admin.category.add", compact("sections"));
     }
     public function dataTable() 
     {
-        $categories = Category::all();
+        $categories = Category::with(["parentCategory", "section"])->get();
 
         return Datatables::of($categories)
         ->addColumn("status", function ($category) {
@@ -80,7 +79,41 @@ class CategoryController extends Controller
                 return '<a class="btn"><span onclick="updateCategoryStatus(this) "data-status="' . $category->status . '" data-id="'. $category->id . '" class="badge badge-pill badge-danger">Inactive</span><a>';
             }
         })
-        ->rawColumns(['status'])
+        ->addColumn("parent_category", function ($category) {
+            if(is_null($category["parentCategory"])) {
+                return "-";
+            } else {
+                return $category["parentCategory"]["category_name"];
+            }
+        })
+        ->addColumn("section", function ($category) {
+            if(is_null($category["section"])) {
+                return "-";
+            } else {
+                return $category["section"]["name"];
+            }
+        })
+        ->addColumn("action", function ($category) {
+            return '<a href="admin/edit/' . $category->id . '"><i class="fas fa-edit"></i></a>';
+        })
+        ->rawColumns(['status', 'action'])
         ->make(true);
+    }
+
+    public function getCategoryOfSection(Request $request) {
+        $request->validate([
+            "section_id" => "required"
+        ]);
+
+        try {
+            $categories = Category::with("subCategories")->where("section_id", $request->section_id)
+            ->where("parent_id", 0)
+            ->where("status", true)
+            ->get()->toArray();
+
+            return response()->json(['categories' => $categories], 200);
+        } catch (\Throwable $th) {
+            return response()->json(["error" => "Something went wrong"],422);
+        }        
     }
 }
