@@ -15,8 +15,17 @@ class CategoryController extends Controller
         return view("admin.category.index");
     }
 
-    public function updateCategoryStatus(Request $request, $id)
-    {
+    public function destroy($id) {
+
+        try {
+            Category::destroy($id);
+            return response()->json(['success' => "Category deleted successfully"], 200);
+        } catch (\Throwable $th) {
+            return response()->json(["error" => "Something went wrong"],422);
+        }  
+    }
+    
+    public function updateCategoryStatus(Request $request, $id) {
         try {
             Category::where("id", $id)->update(["status" => !$request->status]);
             return redirect()->back()->with('success', 'Status updated');  
@@ -94,7 +103,8 @@ class CategoryController extends Controller
             }
         })
         ->addColumn("action", function ($category) {
-            return '<a href="admin/edit/' . $category->id . '"><i class="fas fa-edit"></i></a>';
+            return '<span onclick="editCategory(this)" data-id="' . $category->id . '"><i class="fas fa-edit"></i></span>
+                    <span onclick="destroyCategory(this)" data-id="' . $category->id . '" class="ml-2"><i class="fas fa-trash"></i></span>';
         })
         ->rawColumns(['status', 'action'])
         ->make(true);

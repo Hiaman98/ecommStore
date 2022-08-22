@@ -111,5 +111,33 @@
                 }
             });
         }
+
+        function destroyCategory (e) {
+            var id = $(e).attr("data-id");
+            var url = "{{ route('admin.category.destroy, ['id' => 'id']')}}",
+            console.log(url);
+
+            $.ajax({
+                url:url,
+                success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Delete',
+                        text: response.success,
+                    })
+                }, 
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+                }
+            });
+        }
+
+        function editCategory (e) {
+            var id = $(e).attr("data-id");
+        }
     </script>
 @endsection
